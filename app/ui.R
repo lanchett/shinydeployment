@@ -19,24 +19,24 @@ ui <- dashboardPage(
       fluidRow(box(title = "GT",
                    tags$a(a(
                      img(src = 'GT.jpg')
-                   ))),
-      box(title = "Mojito",
+                   )))),
+      fluidRow(box(title = "Mojito",
                    tags$a(a(
                      img(src = 'Mojito.jpg')
-                   ))),
-      box(title = "Whisky Sour",
+                   )))),
+    fluidRow(box(title = "Whisky Sour",
                    tags$a(a(
                      img(src = 'Whisky.jpg')
-                   ))),
-      box(title = "Aloe Vera",
+                   )))),
+    fluidRow(box(title = "Aloe Vera",
           tags$a(a(
             img(src = 'Aloe_Vera.jpg')
-          ))),
-      box(title = "Knickerbocker",
+          )))),
+    fluidRow(box(title = "Knickerbocker",
           tags$a(a(
             img(src = 'Knickerbocker.jpg')
-          ))),
-      box(title = "Sure Føtter",
+          )))),
+    fluidRow(box(title = "Sure Føtter",
           tags$a(a(
             img(src = 'Sure_fotter.jpg')
           ))))
