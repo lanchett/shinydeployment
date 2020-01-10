@@ -3,7 +3,8 @@
 library(shinydashboard)
 library(shiny)
 library(DT)
-library(dplyr)
+#library(dplyr)
+library(purrr)
 
 ui <- dashboardPage(
   dashboardHeader(title = "Drinkathon Dashboard"),
