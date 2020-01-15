@@ -1,50 +1,50 @@
 library(shiny)
 
+url = "url" # Add real URL here
+con = tryCatch({
+  mongo(collection = "drinkathon", db ="drinks", url= url)
+}, warning = function(w) {
+  mongo(collection = "drinkathon", db ="drinks", url= url)
+}, error = function(e) {
+  "Connection not working"
+}) 
+
 server <- function(input, output, session) {
-  ntext <- eventReactive(input$goButton, {
-    saveRDS(data.frame(
-        Drink = input$Drink, Navn = input$Navn
-      ),
-      file = paste0(
-        here::here(),
-        "/",
-        stringi::stri_rand_strings(1, 100),
-        ".rds"
-      )
-    )
+    ntext <- eventReactive(input$goButton, {
+    if(con ==  "Connection not working"){
+      
+    } else {
+      
+      con$insert(data.frame(
+        Drink = input$Drink, Name = input$Name, Time = Sys.time()
+      ))
+    }
     
     list(
-      input = input$Drink,
-      files = files <-
-        list.files(here::here(), pattern = ".rds")
+      input = input$Drink
     )
   })
   
   output$nText <- renderText({
-    paste(ntext()$input, "er bestilt")
+    paste(ntext()$input, "ordered")
   })
   
-  output$orders_total <- renderText({
-    paste("Totalt antall bestillinger idag:", length(ntext()$files))
-  })
+  data <- eventReactive(input$seeOrders,{
+    if(con ==  "Connection not working"){
+      mydata <- data.frame(Drink = "", Name = "", Time = "")
+    } else {
+    mydata <- con$find()
+    mydata$Time <- as.character(mydata$Time)
   
-  
-  data <- eventReactive(input$sebestillinger,{
-    files <-
-      list.files(here::here(), pattern = ".rds")
-    files <-  paste0(
-      here::here(),"/", files)
     
-    if(is.null(files)){
-      return()
-    }
-    bestillinger <- purrr::map_df(files, ~ readRDS(.x))
-    df <- bestillinger
-    df
-  })
+  }
+    mydata
+   } )
   
-  output$summary_table <- renderDataTable({
-    data()
-  })
-  
+   output$summary_table <- renderTable({
+     data()
+   })
+   
 }
+
+

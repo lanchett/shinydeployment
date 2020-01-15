@@ -2,49 +2,49 @@
 # Use ShinyDashboard
 library(shinydashboard)
 library(shiny)
-library(DT)
 #library(dplyr)
-library(purrr)
+library(mongolite)
+
 
 ui <- dashboardPage(
   dashboardHeader(title = "Drinkathon Dashboard"),
   dashboardSidebar(sidebarMenu(
-    menuItem("Drinkmeny", tabName = "Drinkmeny", icon = icon("th")),
-    menuItem("Bestillinger", tabName = "Bestillinger", icon = icon("th"))
+    menuItem("DrinkMenu", tabName = "DrinkMenu", icon = icon("th")),
+    menuItem("Orders", tabName = "Orders", icon = icon("th"))
   )),
   dashboardBody(tabItems(
     tabItem(
-      tabName = "Drinkmeny",
-      h2("Finn noe du liker"),
+      tabName = "DrinkMenu",
+      h2("Find something you like"),
       
       fluidRow(box(title = "GT",
                    tags$a(a(
-                     img(src = 'GT.jpg')
+                     img(src = "https://github.com/lanchett/shinydeployment/blob/master/app/www/GT.jpg?raw=true")
                    )))),
       fluidRow(box(title = "Mojito",
                    tags$a(a(
-                     img(src = 'Mojito.jpg')
+                     img(src = "https://github.com/lanchett/shinydeployment/blob/master/app/www/Mojito.jpg?raw=true")
                    )))),
     fluidRow(box(title = "Whisky Sour",
-                   tags$a(a(
-                     img(src = 'Whisky.jpg')
+                 tags$a(a(
+                   img(src ="https://github.com/lanchett/shinydeployment/blob/master/app/www/Whisky.jpg?raw=true")
                    )))),
     fluidRow(box(title = "Aloe Vera",
           tags$a(a(
-            img(src = 'Aloe_Vera.jpg')
+            img(src = "https://github.com/lanchett/shinydeployment/blob/master/app/www/Aloe_Vera.jpg?raw=true")
           )))),
     fluidRow(box(title = "Knickerbocker",
           tags$a(a(
-            img(src = 'Knickerbocker.jpg')
+            img(src = "https://github.com/lanchett/shinydeployment/blob/master/app/www/Knickerbocker.jpg?raw=true")
           )))),
     fluidRow(box(title = "Sure Føtter",
           tags$a(a(
-            img(src = 'Sure_fotter.jpg')
+            img(src = "https://github.com/lanchett/shinydeployment/blob/master/app/www/Sure_fotter.jpg?raw=true")
           ))))
     ),
     
     tabItem(
-      tabName = "Bestillinger",
+      tabName = "Orders",
       selectInput(
         "Drink",
         "Drink:",
@@ -58,14 +58,13 @@ ui <- dashboardPage(
           
         )
       ),
-      textInput("Navn", "Skriv ditt navn"),
+      textInput("Name", "Write Your Name"),
       br(),
-      actionButton("goButton", "Bestill nå"),
+      actionButton("goButton", "Order Now"),
       verbatimTextOutput("nText"),
-      verbatimTextOutput("orders_total"),
       hr(),
-      actionButton("sebestillinger","Se bestillingsoversikt"),
-      dataTableOutput("summary_table")
+      actionButton("seeOrders","See Orders"),
+      tableOutput("summary_table")
     )
   ))
 )
