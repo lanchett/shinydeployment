@@ -1,6 +1,6 @@
 library(tidyverse)
 library(mongolite)
-url = "mongodb+srv://lanchett:{pwd}@drinkathon-jvdlw.mongodb.net/test?retryWrites=true&w=majority"
+url = "url" #Add real URL here
 
 OpenCon<- mongo(url = url)
 CON_movie <- mongo("test", db = "testing",url=url)
